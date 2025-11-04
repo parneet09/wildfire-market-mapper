@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildfire Market Mapper - Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 5px; }
+        .stats { display: flex; gap: 20px; margin: 20px 0; }
+        .stat-card { background: #ecf0f1; padding: 15px; border-radius: 5px; flex: 1; }
+        .org-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .org-table th, .org-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .org-table th { background-color: #34495e; color: white; }
+        .tier-a { background-color: #d5f4e6; }
+        .tier-b { background-color: #fef9e7; }
+        .tier-c { background-color: #fadbd8; }
+        .nav { margin: 20px 0; }
+        .nav a { margin-right: 20px; padding: 10px; background: #3498db; color: white; text-decoration: none; border-radius: 3px; }
+        .nav a:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔥 Wildfire Market Mapper - Admin Dashboard</h1>
+        <p>AI-powered wildfire risk tool market intelligence</p>
+    </div>
+
+    <div class="nav">
+        <a href="/admin/">Dashboard</a>
+        <a href="/admin/review">Review Queue</a>
+        <a href="/api/export/csv">Export CSV</a>
+        <a href="/api/export/xlsx">Export Excel</a>
+        <a href="/docs">API Docs</a>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <h3>Total Organizations</h3>
+            <p>{{ organizations|length }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>By Sector</h3>
+            <p>Government: {{ organizations|selectattr("sector", "equalto", "Government")|list|length }}</p>
+            <p>Utilities: {{ organizations|selectattr("sector", "equalto", "Utilities")|list|length }}</p>
+            <p>Insurance: {{ organizations|selectattr("sector", "equalto", "Insurance/Analytics")|list|length }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>By Tier</h3>
+            <p>Tier A: {{ organizations|selectattr("lead_scoring.tier", "equalto", "A")|list|length }}</p>
+            <p>Tier B: {{ organizations|selectattr("lead_scoring.tier", "equalto", "B")|list|length }}</p>
+            <p>Tier C: {{ organizations|selectattr("lead_scoring.tier", "equalto", "C")|list|length }}</p>
+        </div>
+    </div>
+
+    <h2>Organizations</h2>
+    <table class="org-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Sector</th>
+                <th>Country</th>
+                <th>Exposure Score</th>
+                <th>Propensity Score</th>
+                <th>Tier</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for org in organizations %}
+            <tr class="tier-{{ org.lead_scoring.tier.lower() if org.lead_scoring else 'c' }}">
+                <td>{{ org.name }}</td>
+                <td>{{ org.sector }}</td>
+                <td>{{ org.country }}</td>
+                <td>{{ "%.1f"|format(org.risk_overlay.exposure_score) if org.risk_overlay and org.risk_overlay.exposure_score else "N/A" }}</td>
+                <td>{{ "%.1f"|format(org.lead_scoring.propensity_score) if org.lead_scoring else "N/A" }}</td>
+                <td>{{ org.lead_scoring.tier if org.lead_scoring else "N/A" }}</td>
+                <td>{{ org.lead_scoring.reviewer_status if org.lead_scoring else "pending" }}</td>
+                <td>
+                    {% if org.lead_scoring and org.lead_scoring.reviewer_status == "pending" %}
+                    <form method="POST" action="/admin/approve/{{ org.org_id }}" style="display: inline;">
+                        <button type="submit" style="background: #27ae60; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Approve</button>
+                    </form>
+                    <form method="POST" action="/admin/reject/{{ org.org_id }}" style="display: inline;">
+                        <button type="submit" style="background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Reject</button>
+                    </form>
+                    {% else %}
+                    <span style="color: #7f8c8d;">{{ org.lead_scoring.reviewer_status if org.lead_scoring else "pending" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
