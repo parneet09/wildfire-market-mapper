@@ -130,22 +130,13 @@ It leverages **Python**, **OpenAI’s GPT models**, and **data parsing framework
 
 ---
 
-## 🧠 Key Learnings
-
-- Integrating AI for contextual understanding  
-- Building autonomous data pipelines  
-- Error handling and debugging across modules  
-- Secure API key management with `.env`  
-- Structuring unstructured web data for analysis  
+# 🚀 How to Run Locally
 
 ---
 
-## 🚀 How to Run Locally
+## 🧩 Set Up Environment
 
-
-
-## Set up environment
-
+```bash
 python -m venv venv
 source venv/bin/activate    # (Mac)
 # OR
@@ -153,19 +144,23 @@ venv\Scripts\activate       # (Windows)
 
 pip install -r requirements.txt
 
----
 
-3. Add Your API Key
-Create a .env file in the root:
+---
+```markdown
+## 🔑 Add Your API Key 
+```bash
 OPENAI_API_KEY=your_key_here
 
----
-
-4. Run the Agent
+___
+```markdown
+## ▶️ Run the Agent
+```bash
 python agent/autonomous_wildfire_agent.py
 
-
-📈 Example Output
+___
+```markdown
+## 📈 Example Output
+```json
 {
   "organization_name": "California Department of Forestry and Fire Protection (CAL FIRE)",
   "sector": "Government",
@@ -174,7 +169,11 @@ python agent/autonomous_wildfire_agent.py
   "contact": "https://www.fire.ca.gov/",
   "source_url": "https://www.fire.ca.gov/"
 }
-🧩 Folder Structure
+
+___
+```markdown
+## 🗂️ Folder Structure
+```bash
 wildfire-market-mapper/
 ├── agent/
 │   └── autonomous_wildfire_agent.py
@@ -188,15 +187,24 @@ wildfire-market-mapper/
 ├── requirements.txt
 ├── README.md
 └── LICENSE
-🔮 Future Improvements
+
+__
+```markdown
+## 🔮 Future Improvements
 Integration with PostgreSQL or MongoDB
 Interactive web dashboard for visualization
 Advanced ranking and filtering system
 Optimized LLM prompt engineering for precision
-🏁 Conclusion
+
+___
+```markdown
+## 🏁 Conclusion
 The WildFire Market Mapper showcases how AI can enhance environmental intelligence and data automation.
 By combining language models, data extraction, and automation, it transforms raw web data into actionable insights for wildfire risk management and research.
-👤 Author
+
+___
+```markdown
+##👤 Author
 Parneet Kaur
 AI & Data Science Intern — Acara Climate
 Supervised by Olivier Makuch
