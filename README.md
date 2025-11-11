@@ -146,21 +146,21 @@ pip install -r requirements.txt
 
 
 ---
-```markdown
+
 ## 🔑 Add Your API Key 
 ```bash
 OPENAI_API_KEY=your_key_here
 
 ___
-```markdown
+
 ## ▶️ Run the Agent
-```bash
+
 python agent/autonomous_wildfire_agent.py
 
 ___
-```markdown
+
 ## 📈 Example Output
-```json
+
 {
   "organization_name": "California Department of Forestry and Fire Protection (CAL FIRE)",
   "sector": "Government",
@@ -170,26 +170,10 @@ ___
   "source_url": "https://www.fire.ca.gov/"
 }
 
-___
-```markdown
-## 🗂️ Folder Structure
-```bash
-wildfire-market-mapper/
-├── agent/
-│   └── autonomous_wildfire_agent.py
-├── data/
-│   └── output/
-│       └── wildfire_data.json
-├── utils/
-│   ├── parser.py
-│   └── extractor.py
-├── .env
-├── requirements.txt
-├── README.md
-└── LICENSE
+
 
 __
-```markdown
+
 ## 🔮 Future Improvements
 Integration with PostgreSQL or MongoDB
 Interactive web dashboard for visualization
@@ -197,14 +181,14 @@ Advanced ranking and filtering system
 Optimized LLM prompt engineering for precision
 
 ___
-```markdown
+
 ## 🏁 Conclusion
 The WildFire Market Mapper showcases how AI can enhance environmental intelligence and data automation.
 By combining language models, data extraction, and automation, it transforms raw web data into actionable insights for wildfire risk management and research.
 
 ___
-```markdown
+
 ##👤 Author
 Parneet Kaur
-AI & Data Science Intern — Acara Climate
-Supervised by Olivier Makuch
+AI Intern — Acara Climate
+Supervised by Olivier Makuch and Auky gonzales
